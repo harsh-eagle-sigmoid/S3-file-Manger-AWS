@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Bucket {{ bucket }}</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+</head>
+<body class="container p-4">
+    <h2>Bucket: {{ bucket }}</h2>
+    <form method="post" action="/upload/{{ bucket }}" enctype="multipart/form-data" class="mb-3">
+        <input type="file" name="file" class="form-control" required>
+        <button class="btn btn-success mt-2">Upload</button>
+    </form>
+
+    <ul class="list-group">
+        {% for f in files %}
+        <li class="list-group-item d-flex justify-content-between">
+            {{ f.Key }}
+            <a href="{{ url_for('delete_file', bucket=bucket, key=f.Key) }}" class="btn btn-danger btn-sm">Delete</a>
+        </li>
+        {% endfor %}
+    </ul>
+
+    <a href="/" class="btn btn-secondary mt-3">Back</a>
+</body>
+</html>
